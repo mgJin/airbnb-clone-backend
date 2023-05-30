@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+#from rooms imprt views as room_views 로 접근해서 room_views.say_hello 로 해도 됨
 
+
+#path("경로", 보여줄 것)로 접근하면 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/rooms/',include("rooms.urls")),
+    path('api/v1/categories/',include("categories.urls")),
 ]

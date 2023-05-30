@@ -6,12 +6,19 @@ class Wishlist(CommonModel):
     """ Wishlist model Definition"""
 
     name = models.CharField(max_length=150)
-    rooms = models.ManyToManyField("rooms.Room",)
-    experiences = models.ManyToManyField("experiences.Experiences",)
+    rooms = models.ManyToManyField(
+        "rooms.Room",
+        related_name="wishlists",
+        )
+    experiences = models.ManyToManyField(
+        "experiences.Experiences",
+        related_name="wishlists",
+        )
 
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
+        related_name="wishlists",
 
     )
 

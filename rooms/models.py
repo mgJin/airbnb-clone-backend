@@ -46,6 +46,7 @@ class Room(CommonModel):
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
+        related_name="rooms",
     )
     #카테고리
     category = models.ForeignKey(
@@ -53,14 +54,32 @@ class Room(CommonModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="rooms",
     )
 
     #어떤 모델을 가지고 싶은지 적어줘야함 Room 클래스에서 amenity지정
-    amenities = models.ManyToManyField("rooms.Amenity")
+    amenities = models.ManyToManyField(
+        "rooms.Amenity",
+        related_name="rooms",
+    )
    
     def __str__(self)->str:
         return self.name
-
+    
+    #admin에다가 해도 되고 model 에다가 해도 된다.
+    def total_amenities(self):
+        return self.amenities.count()
+    
+    def rating(self):
+        count = self.reviews.count()
+        if count ==0:
+            return "No reviews"
+        else:
+            total_rating = 0
+                #전체를 불러오면 힘드니깐 rating점수만 불러오기(딕셔너리로 됌)
+            for review in self.reviews.all().values("rating"): 
+                total_rating +=review['rating']
+            return round(total_rating / count,2) #round로 소수점개수 제한
 
 # amenity: 쾌적함,살아가는데 필요한 종합적인것들
 # 다대다 관계(many to many)

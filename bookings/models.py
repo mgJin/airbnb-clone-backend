@@ -18,6 +18,7 @@ class Booking(CommonModel):
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
+        related_name="bookings",
     )
     #예약은 하나의 방만 가질 수 있다.
     room = models.ForeignKey(
@@ -25,6 +26,7 @@ class Booking(CommonModel):
         null = True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="bookings",
     )
 
     experience = models.ForeignKey(
@@ -32,6 +34,7 @@ class Booking(CommonModel):
         null = True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="bookings",
     )
     #Room예약은 날짜만 신경쓰기
     check_in = models.DateField(null=True,blank=True,)
@@ -41,3 +44,6 @@ class Booking(CommonModel):
 
     experience_time = models.DateTimeField(null=True,blank=True,)
     guests = models.PositiveIntegerField()
+
+    def __str__(self) -> str:
+        return f"{self.kind.title()} booking for : {self.user}"

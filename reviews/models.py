@@ -5,7 +5,11 @@ class Review(CommonModel):
 
     """ Review from a User to a Room or Experience"""
 
-    user = models.ForeignKey("users.User",on_delete=models.CASCADE,)
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="reviews",
+        )
 
     #리뷰는 room의 것일 수도 experience의 것일 수도 있다.
     #따라서 null 이 될 수 있어야한다.
@@ -14,6 +18,7 @@ class Review(CommonModel):
         null = True,
         blank = True,
         on_delete=models.CASCADE,
+        related_name="reviews"
     )
 
     experience = models.ForeignKey(
@@ -21,6 +26,7 @@ class Review(CommonModel):
         null = True,
         blank = True,
         on_delete=models.CASCADE,
+        related_name="reviews",
 
     )
     #유저가 남긴 리뷰
