@@ -73,7 +73,7 @@ class Room(CommonModel):
     def rating(self):
         count = self.reviews.count()
         if count ==0:
-            return "No reviews"
+            return 0
         else:
             total_rating = 0
                 #전체를 불러오면 힘드니깐 rating점수만 불러오기(딕셔너리로 됌)
