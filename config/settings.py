@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-KR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -145,3 +145,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Auth
 
 AUTH_USER_MODEL = "users.User"
+
+#업로드 될 곳
+MEDIA_ROOT = "uploads"
+#유저가 접근해서 업로드 된 파일을 볼 곳
+MEDIA_URL = "user-uploads/"
+
+PAGE_SIZE = 3

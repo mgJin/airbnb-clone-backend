@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
 #from rooms imprt views as room_views 로 접근해서 room_views.say_hello 로 해도 됨
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 #path("경로", 보여줄 것)로 접근하면 
@@ -25,4 +28,6 @@ urlpatterns = [
     path('api/v1/rooms/',include("rooms.urls")),
     path('api/v1/categories/',include("categories.urls")),
     path('api/v1/experiences/',include("experiences.urls")),
-]
+    path('api/v1/medias/',include("medias.urls")),
+    path('api/v1/wishlists/',include("wishlists.urls")),
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
