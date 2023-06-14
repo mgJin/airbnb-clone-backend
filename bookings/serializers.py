@@ -27,6 +27,20 @@ class CreateRoomBookingSerializer(ModelSerializer):
             raise ValidationError("Can't book, go future")
         return value
 
+    def validate(self, data):
+        if data['check_out'] <= data['check_in']:
+            raise ValidationError(
+                "Check out should be future than check_in"
+            )
+        if Booking.objects.filter(
+            check_in__lte = data['check_out'],
+            check_out__gte = data['check_in']
+        ).exists():
+            raise ValidationError(
+                "Can't booking cause between bookings already exist"
+            )
+        return data
+
 class PublicBookingSerializer(ModelSerializer):
 
     class Meta:

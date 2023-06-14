@@ -48,4 +48,4 @@ class User(AbstractUser):
     )
     #form에서 필드를 비어둘 수 있게 해주는것 (null =True)랑은 다르다
     #form에서 필수적이지 않게 하는것(반드시 입력하시오가 아니게 하는것)
-    profile_photo = models.ImageField(blank=True)
+    profile_photo = models.URLField(blank=True)

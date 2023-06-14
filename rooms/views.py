@@ -325,7 +325,17 @@ class RoomBookings(APIView):
         room = self.get_object(pk)
         serializer = CreateRoomBookingSerializer(data = request.data)
         if serializer.is_valid():
-            check_in = request.data.get("check_in")
+            #createserializer에는 checkin과 checkout, guests 뿐이라 추가를 해줘야한다
+            booking = serializer.save(
+                room = room,
+                user= request.user,
+                kind = Booking.BookingKindChoices.Room,
+            )
+            serializer = PublicBookingSerializer(booking)
+            return Response(
+                serializer.data
+            )
+            
         else:
             return Response(
                 serializer.errors
