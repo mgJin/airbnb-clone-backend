@@ -1,5 +1,5 @@
 from django.utils import timezone
-from rest_framework.serializers import ModelSerializer,DateField,ValidationError
+from rest_framework.serializers import ModelSerializer,DateField,ValidationError,DateTimeField
 from .models import Booking
 
 class CreateRoomBookingSerializer(ModelSerializer):
@@ -41,6 +41,25 @@ class CreateRoomBookingSerializer(ModelSerializer):
             )
         return data
 
+class CreateExperienceBookingSerializer(ModelSerializer):
+    
+    experience_time = DateTimeField()
+
+    class Meta:
+        model = Booking
+        fields =(
+            "experience_time",
+            "guests",
+        )
+    
+    def validate_experience_time(self,data):
+        
+        local_time = timezone.localtime(timezone.now())
+        if local_time >= data:
+            raise ValidationError("put future schedule")
+        return data
+
+
 class PublicBookingSerializer(ModelSerializer):
 
     class Meta:
@@ -52,3 +71,4 @@ class PublicBookingSerializer(ModelSerializer):
             "experience_time",
             "guests",
         )
+
