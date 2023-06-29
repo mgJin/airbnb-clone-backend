@@ -5,8 +5,7 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    
-    #개개인 별 관리 시
+    # 개개인 별 관리 시
     fieldsets = (
         (
             "Profile",
@@ -43,7 +42,7 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-    #여러명을 볼때 볼 항목들
+    # 여러명을 볼때 볼 항목들
     list_display = (
         "username",
         "email",
