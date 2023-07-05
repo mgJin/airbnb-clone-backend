@@ -43,10 +43,11 @@ class Users(APIView):
             user = serializer.save()
             user.set_password(password)
             user.save()
+            login(request, user)
             serializer = PrivateUserSerializer(user)
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PublicUser(APIView):
@@ -206,3 +207,8 @@ class KakaoLogin(APIView):
                 return Response(status=status.HTTP_200_OK)
         except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class SignUp(APIView):
+    def post(self, request):
+        pass
