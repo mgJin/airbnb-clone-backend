@@ -84,6 +84,7 @@ class Rooms(APIView):
         serializer = RoomDetailSerializer(
             data=request.data,
         )
+
         if serializer.is_valid():
             # request에서 category의 id를 받음
             category_pk = request.data.get("category")
