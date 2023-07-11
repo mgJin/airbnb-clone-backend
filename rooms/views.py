@@ -84,8 +84,9 @@ class Rooms(APIView):
         serializer = RoomDetailSerializer(
             data=request.data,
         )
-
+        print("can't pass valid")
         if serializer.is_valid():
+            print("valid pass")
             # request에서 category의 id를 받음
             category_pk = request.data.get("category")
             if not category_pk:
@@ -111,7 +112,9 @@ class Rooms(APIView):
                     for amenity_pk in amenities:
                         amenity = Amenity.objects.get(pk=amenity_pk)
                         room.amenities.add(amenity)
-                    serializer = RoomDetailSerializer(room)
+                    serializer = RoomDetailSerializer(
+                        room, context={"request": request}
+                    )
                     return Response(serializer.data)
             except Exception:
                 raise ParseError("Amennnniitttyy")
