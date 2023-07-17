@@ -5,13 +5,12 @@ description = ""
 authors = ["mgJin <jmg940701@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "airbnb_clone_backend"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.2.1"
+django = "~4.0"
 black = "^23.3.0"
-pillow = "^9.5.0"
 djangorestframework = "^3.14.0"
 pyjwt = "^2.7.0"
 django-environ = "^0.10.0"
