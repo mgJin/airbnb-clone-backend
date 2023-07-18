@@ -343,3 +343,8 @@ class RoomBookingsCheck(APIView):
         if exists:
             return Response({"ok": False})
         return Response({"ok": True})
+
+class TempoClass(APIView):
+
+    def get(self,request):
+        pass
